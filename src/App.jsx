@@ -9,6 +9,7 @@ import notesHero from './assets/projects/notes-hero.png'
 import notesBoard from './assets/projects/notes-board.png'
 import playgroundHero from './assets/projects/playground-hero.png'
 import playgroundCollections from './assets/projects/playground-collections.png'
+import rescueRobotTrajectory from './assets/projects/rescue-robot-trajectory.png'
 import busquedaDialogue from './assets/games/busqueda-dialogue.png'
 import busquedaWorld from './assets/games/busqueda-world.png'
 import lunaForest from './assets/games/luna-forest.png'
@@ -192,7 +193,7 @@ function App() {
           <div className="extras-layout">
             <a className="research-card reveal" href="https://portfolio-julia-aguaya.vercel.app/docs/publications/rescue-robots-genetic-algorithms.pdf" target="_blank" rel="noreferrer">
               <div className="research-image-wrap">
-                <img src="https://portfolio-julia-aguaya.vercel.app/images/projects/algoritmo/camino%20ag%20y%20elitismo.png" alt="Trayectoria calculada por algoritmo genético con elitismo en una simulación de rescate" />
+                <img src={rescueRobotTrajectory} alt="Trayectoria calculada por algoritmo genético con elitismo en una simulación de rescate" />
                 <span>ver investigación <Arrow /></span>
               </div>
               <div className="research-copy">
