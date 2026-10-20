@@ -191,7 +191,7 @@ function App() {
           </div>
 
           <div className="extras-layout">
-            <a className="research-card reveal" href="https://portfolio-julia-aguaya.vercel.app/docs/publications/rescue-robots-genetic-algorithms.pdf" target="_blank" rel="noreferrer">
+            <a className="research-card reveal" href="/docs/publications/rescue-robots-genetic-algorithms.pdf" target="_blank" rel="noreferrer">
               <div className="research-image-wrap">
                 <img src={rescueRobotTrajectory} alt="Trayectoria calculada por algoritmo genético con elitismo en una simulación de rescate" />
                 <span>ver investigación <Arrow /></span>
