@@ -209,8 +209,8 @@ function App() {
               <section className="credentials" aria-labelledby="credentials-title">
                 <p className="eyebrow">credenciales</p>
                 <h3 id="credentials-title">Aprender también es parte del proceso.</h3>
-                <a href="https://portfolio-julia-aguaya.vercel.app/docs/certificates/cybersecurity-educacionit-julia-aguaya.pdf" target="_blank" rel="noreferrer"><span className="credential-number">01</span><span className="credential-name">Introducción a la Ciberseguridad</span><i>EducaciónIT · 2025</i><Arrow /></a>
-                <a href="https://portfolio-julia-aguaya.vercel.app/docs/certificates/conaiisi-2025-julia-aguaya.pdf" target="_blank" rel="noreferrer"><span className="credential-number">02</span><span className="credential-name">CoNaIISI 2025</span><i>UTN · Córdoba</i><Arrow /></a>
+                <a href="/docs/certificates/cybersecurity-educacionit-julia-aguaya.pdf" target="_blank" rel="noreferrer"><span className="credential-number">01</span><span className="credential-name">Introducción a la Ciberseguridad</span><i>EducaciónIT · 2025</i><Arrow /></a>
+                <a href="/docs/certificates/conaiisi-2025-julia-aguaya.pdf" target="_blank" rel="noreferrer"><span className="credential-number">02</span><span className="credential-name">CoNaIISI 2025</span><i>UTN · Córdoba</i><Arrow /></a>
               </section>
 
               <section className="toolbox" aria-labelledby="toolbox-title">
