@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import pilatesOverview from './assets/projects/pilates-overview.png'
 import pilatesRecovery from './assets/projects/pilates-recovery.png'
@@ -23,7 +23,7 @@ const Arrow = () => (
 const Spark = () => <span className="spark" aria-hidden="true">✦</span>
 
 const marqueePhrases = [
-  'UX / UI DESIGN',
+  'SOFTWARE DEVELOPMENT',
   'SOFTWARE WITH SOUL',
   'RESEARCH · PLAY · BUILD',
 ]
@@ -55,7 +55,91 @@ const GamePreview = ({ variant, images, alt }) => (
   </div>
 )
 
+const projects = [
+  {
+    name: 'Pilates Eunoia',
+    type: 'web app · en uso real',
+    summary: 'Reservas, cupos y recuperaciones para un estudio de Pilates.',
+    variant: 'pilates',
+    url: 'https://pilateseunoia.com',
+    images: [
+      { src: pilatesOverview, alt: 'Vista general del portal de Pilates Eunoia' },
+      { src: pilatesRecovery, alt: 'Pantalla de recuperaciones del portal Pilates Eunoia' },
+      { src: pilatesCalendar, alt: 'Agenda mensual de clases del portal Pilates Eunoia' },
+    ],
+  },
+  {
+    name: 'Notas',
+    type: 'product concept',
+    summary: 'Un lugar para capturar ideas y organizarlas con intención.',
+    variant: 'notes',
+    url: 'https://notes-lovat-gamma.vercel.app/',
+    images: [
+      { src: notesHero, alt: 'Pantalla principal de la aplicación Notas' },
+      { src: notesBoard, alt: 'Tablero de notas y categorías' },
+    ],
+  },
+  {
+    name: 'Juli Playground',
+    type: 'illustration · visual play',
+    summary: 'Un pequeño mundo digital para ilustrar, coleccionar y jugar.',
+    variant: 'drawing',
+    url: 'https://juli-playground.vercel.app/',
+    images: [
+      { src: playgroundHero, alt: 'Pantalla de inicio de Juli Playground' },
+      { src: playgroundCollections, alt: 'Colecciones ilustradas de Juli Playground' },
+    ],
+  },
+  {
+    name: 'Taller Mecánico',
+    type: 'sistema de gestión',
+    summary: 'Casos, presupuestos y seguimiento operativo en un solo sistema.',
+    variant: 'workshop',
+    images: [
+      { src: workshopDashboard, alt: 'Panel principal del sistema para taller mecánico' },
+      { src: workshopFolders, alt: 'Carpetas y casos del sistema para taller mecánico' },
+    ],
+  },
+]
+
+const ProjectGallery = ({ project, onClose }) => {
+  const [activeImage, setActiveImage] = useState(0)
+  const image = project.images[activeImage]
+
+  useEffect(() => {
+    const closeWithEscape = (event) => event.key === 'Escape' && onClose()
+    window.addEventListener('keydown', closeWithEscape)
+    return () => window.removeEventListener('keydown', closeWithEscape)
+  }, [onClose])
+
+  return (
+    <div className="gallery-backdrop" role="presentation" onMouseDown={onClose}>
+      <section className="project-gallery" role="dialog" aria-modal="true" aria-labelledby="gallery-title" onMouseDown={(event) => event.stopPropagation()}>
+        <button className="gallery-close" type="button" onClick={onClose} aria-label="Cerrar galería">×</button>
+        <div className="gallery-copy">
+          <p className="eyebrow">capturas del proyecto</p>
+          <h3 id="gallery-title">{project.name}</h3>
+          <p>{project.summary}</p>
+          {project.url && <a href={project.url} target="_blank" rel="noreferrer">Ver proyecto real <Arrow /></a>}
+        </div>
+        <div className="gallery-stage">
+          <img src={image.src} alt={image.alt} />
+          <p>{String(activeImage + 1).padStart(2, '0')} / {String(project.images.length).padStart(2, '0')}</p>
+        </div>
+        <div className="gallery-thumbnails" aria-label="Elegir captura">
+          {project.images.map((item, index) => (
+            <button className={index === activeImage ? 'is-active' : ''} type="button" onClick={() => setActiveImage(index)} key={item.src} aria-label={`Ver captura ${index + 1} de ${project.name}`}>
+              <img src={item.src} alt="" />
+            </button>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
+
 function App() {
+  const [selectedProject, setSelectedProject] = useState(null)
   useEffect(() => {
     const updateProgress = () => {
       const height = document.documentElement.scrollHeight - window.innerHeight
@@ -112,8 +196,8 @@ function App() {
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="hero-label">UX/UI · software · exploración visual</p>
-            <h1 id="hero-title">Diseño<br />interfaces <em>con personalidad.</em></h1>
+            <p className="hero-label">Desarrolladora de software</p>
+            <h1 id="hero-title">Desarrollo<br />software <em>con personalidad.</em></h1>
             <a className="scroll-note" href="#work">scroll to explore <span>↓</span></a>
           </div>
 
@@ -124,7 +208,7 @@ function App() {
           </div>
 
           <div className="hero-stamps" aria-hidden="true">
-            <span>01<br />UX / UI</span>
+            <span>01<br />SOFTWARE</span>
             <span>built with<br />curiosity</span>
           </div>
         </section>
@@ -143,43 +227,23 @@ function App() {
           </div>
 
           <div className="project-list">
-            <a className="project-row reveal" href="https://pilateseunoia.com" target="_blank" rel="noreferrer">
-              <span className="project-number">01</span>
-              <strong>Pilates Eunoia</strong>
-              <ProjectPreview variant="pilates" images={[pilatesOverview, pilatesRecovery, pilatesCalendar]} />
-              <p className="project-summary">Reservas, cupos y recuperaciones para un estudio de Pilates.</p>
-              <span className="project-type">web app · en uso real</span>
-              <Arrow />
-            </a>
-            <a className="project-row reveal" href="https://notes-lovat-gamma.vercel.app/" target="_blank" rel="noreferrer">
-              <span className="project-number">02</span>
-              <strong>Notas</strong>
-              <ProjectPreview variant="notes" images={[notesHero, notesBoard]} />
-              <p className="project-summary">Un lugar para capturar ideas y organizarlas con intención.</p>
-              <span className="project-type">product concept</span>
-              <Arrow />
-            </a>
-            <a className="project-row reveal" href="https://juli-playground.vercel.app/" target="_blank" rel="noreferrer">
-              <span className="project-number">03</span>
-              <strong>Juli Playground</strong>
-              <ProjectPreview variant="drawing" images={[playgroundHero, playgroundCollections]} />
-              <p className="project-summary">Un pequeño mundo digital para ilustrar, coleccionar y jugar.</p>
-              <span className="project-type">illustration · visual play</span>
-              <Spark />
-              <Arrow />
-            </a>
-            <article className="project-row project-row-static reveal">
-              <span className="project-number">04</span>
-              <strong>Taller Mecánico</strong>
-              <ProjectPreview variant="workshop" images={[workshopDashboard, workshopFolders]} />
-              <p className="project-summary">Casos, presupuestos y seguimiento operativo en un solo sistema.</p>
-              <span className="project-type">sistema de gestión</span>
-              <Arrow />
-            </article>
+            {projects.map((project, index) => (
+              <article className="project-row reveal" key={project.name}>
+                <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
+                <strong>{project.name}</strong>
+                <ProjectPreview variant={project.variant} images={project.images.map((image) => image.src)} />
+                <p className="project-summary">{project.summary}</p>
+                <span className="project-type">{project.type}</span>
+                {project.name === 'Juli Playground' && <Spark />}
+                <button className="project-gallery-trigger" type="button" onClick={() => setSelectedProject(project)} aria-label={`Ver capturas de ${project.name}`}>
+                  ver capturas <Arrow />
+                </button>
+              </article>
+            ))}
           </div>
 
           <div className="work-note reveal">
-            <p>Desde la definición de flujos hasta la implementación: diseño productos que hacen más claro el trabajo de las personas.</p>
+            <p>Mi experiencia está en el desarrollo de software: transformo necesidades reales en aplicaciones y sistemas que simplifican el trabajo de las personas.</p>
             <div><span>Django · Python · MySQL</span><span>Java · Spring Boot · JavaScript</span></div>
           </div>
         </section>
@@ -252,12 +316,13 @@ function App() {
           <div className="about-orb reveal" aria-hidden="true"><span>human<br />taste</span><Spark /></div>
           <div className="about-copy reveal">
             <p className="eyebrow">about / julia aguaya</p>
-            <h2 id="about-title">Diseño, desarrollo<br />y ordeno <em>lo complejo.</em></h2>
-            <p>Soy desarrolladora de software y estudiante de Ingeniería en Sistemas de Información. Combino UX/UI, desarrollo y análisis de procesos para transformar necesidades reales en productos claros, útiles y sostenibles.</p>
+            <h2 id="about-title">Desarrollo y ordeno<br /><em>lo complejo.</em></h2>
+            <p>Soy desarrolladora de software y estudiante de Ingeniería en Sistemas de Información. Mi experiencia laboral está en el desarrollo de aplicaciones y sistemas, con foco en resolver necesidades reales y ordenar procesos.</p>
+            <p>Estoy dando mis primeros pasos en UX/UI y exploración visual para complementar mi trabajo como desarrolladora y crear interfaces más claras y fáciles de usar.</p>
           </div>
           <ol className="process-list reveal">
             <li><span>01</span><div><strong>Entiendo el contexto</strong><p>Escucho, ordeno y traduzco necesidades en flujos claros.</p></div></li>
-            <li><span>02</span><div><strong>Diseño y construyo</strong><p>Investigo, prototipo e implemento experiencias que funcionen de principio a fin.</p></div></li>
+            <li><span>02</span><div><strong>Desarrollo soluciones</strong><p>Implemento aplicaciones y sistemas que conectan las necesidades de las personas con soluciones técnicas.</p></div></li>
             <li><span>03</span><div><strong>Optimizo el proceso</strong><p>Uso OpenCode, Codex y Claude para analizar, depurar, probar y automatizar con más criterio y velocidad.</p></div></li>
           </ol>
         </section>
@@ -265,8 +330,8 @@ function App() {
         <section id="contact" className="contact" aria-labelledby="contact-title">
           <div className="contact-copy reveal">
             <p className="eyebrow">contacto / próximas ideas</p>
-            <h2 id="contact-title">¿Tenés una idea?<br /><em>Hagámosla clara.</em></h2>
-            <p>Estoy disponible para colaborar en productos digitales, interfaces y sistemas que hagan más simple el trabajo de las personas.</p>
+            <h2 id="contact-title">¿Tenés una idea?<br /><em>Construyámosla.</em></h2>
+            <p>Estoy disponible para colaborar en el desarrollo de aplicaciones web y sistemas que hagan más simple el trabajo de las personas.</p>
             <a className="contact-email" href="mailto:juliaguaya02@gmail.com">
               <span>escribime a</span>
               juliaguaya02@gmail.com <Arrow />
@@ -279,14 +344,21 @@ function App() {
               <span><strong>Descargar CV</strong><small>PDF · Español</small></span>
               <Arrow />
             </a>
-            <div className="contact-resource contact-resource-pending" aria-label="Portfolio en inglés: próximamente">
+            <a className="contact-resource" href="https://github.com/Julia-aguaya" target="_blank" rel="noreferrer">
               <span className="resource-index">02</span>
+              <span><strong>GitHub</strong><small>Proyectos y código</small></span>
+              <Arrow />
+            </a>
+            <div className="contact-resource contact-resource-pending" aria-label="Portfolio en inglés: próximamente">
+              <span className="resource-index">03</span>
               <span><strong>Portfolio en inglés</strong><small>coming soon</small></span>
               <span className="pending-mark">EN</span>
             </div>
           </div>
         </section>
       </main>
+
+      {selectedProject && <ProjectGallery project={selectedProject} onClose={() => setSelectedProject(null)} />}
 
       <footer>
         <a className="wordmark" href="#top">julia</a>
