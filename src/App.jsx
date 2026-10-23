@@ -349,8 +349,13 @@ function App() {
               <span><strong>GitHub</strong><small>Proyectos y código</small></span>
               <Arrow />
             </a>
-            <div className="contact-resource contact-resource-pending" aria-label="Portfolio en inglés: próximamente">
+            <a className="contact-resource" href="https://www.linkedin.com/in/julia-aguaya/" target="_blank" rel="noreferrer">
               <span className="resource-index">03</span>
+              <span><strong>LinkedIn</strong><small>Perfil profesional</small></span>
+              <Arrow />
+            </a>
+            <div className="contact-resource contact-resource-pending" aria-label="Portfolio en inglés: próximamente">
+              <span className="resource-index">04</span>
               <span><strong>Portfolio en inglés</strong><small>coming soon</small></span>
               <span className="pending-mark">EN</span>
             </div>
