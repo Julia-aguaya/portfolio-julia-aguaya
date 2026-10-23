@@ -354,11 +354,6 @@ function App() {
               <span><strong>LinkedIn</strong><small>Perfil profesional</small></span>
               <Arrow />
             </a>
-            <div className="contact-resource contact-resource-pending" aria-label="Portfolio en inglés: próximamente">
-              <span className="resource-index">04</span>
-              <span><strong>Portfolio en inglés</strong><small>coming soon</small></span>
-              <span className="pending-mark">EN</span>
-            </div>
           </div>
         </section>
       </main>

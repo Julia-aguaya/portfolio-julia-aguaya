@@ -64,6 +64,17 @@
 .gallery-close{height:44px;width:44px;z-index:2}
 .gallery-thumbnails button{flex-shrink:0}
 
+/* The two smaller desktop cards keep images and copy in normal flow. */
+@media(min-width:681px){
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)){min-height:0;padding:28px;gap:16px}
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)) .project-number{order:0}
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)) .project-preview{order:1;position:relative;inset:auto;display:block;flex-shrink:0;width:100%;height:auto;aspect-ratio:16 / 9;transform:none;margin:0 0 8px}
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)) strong{order:2;max-width:100%;font-size:clamp(32px,3.5vw,54px);line-height:1.05;margin:0}
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)) .project-summary{order:3;max-width:100%;line-height:1.5;margin:0}
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)) .project-type{order:4;margin:0;max-width:100%;line-height:1.5}
+  .project-list .project-row:is(:nth-child(2),:nth-child(3)) .project-gallery-trigger{order:5;position:static;align-self:flex-start;margin-top:auto}
+}
+
 @media(max-width:980px){
   .games{grid-template-columns:minmax(0,1fr);gap:28px}
   .about{grid-template-columns:120px minmax(0,1fr);gap:32px}
